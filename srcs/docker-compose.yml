@@ -70,3 +70,4 @@ volumes:
 networks:
   mynetwork:
     driver: bridge
+    image: mynetwork
