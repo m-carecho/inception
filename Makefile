@@ -6,7 +6,7 @@
 #    By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 19:25:40 by mcarecho          #+#    #+#              #
-#    Updated: 2024/04/27 16:47:57 by mcarecho         ###   ########.fr        #
+#    Updated: 2024/04/27 17:26:58 by mcarecho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,10 @@ NAME			= Inception  # Define o nome do projeto como "Inception".
 USER			= mcarecho  # Define o nome do usuário.
 
 all:
+	sudo apt install nmap -y
+	sudo /etc/init.d/cups stop
+	update-rc.d -f cupsys remove
+	update-rc.d cupsys stop 20 2 3 4 5 .
 	sudo chmod a+w /etc/hosts && sudo cat /etc/hosts | grep mcarecho.42.fr || \
 	sudo echo "127.0.0.1 mcarecho.42.fr" >> /etc/hosts
 	sudo mkdir -p /home/mcarecho/data/wordpress && sudo chmod 777 /home/mcarecho/data/wordpress

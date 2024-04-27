@@ -29,6 +29,8 @@ services:
       context: ./requirements/nginx
       args:
         - DOMAIN_NAME
+      image:
+        nginx
     ports:
       - "443:443"
     networks:
