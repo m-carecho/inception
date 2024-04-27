@@ -1,0 +1,74 @@
+version: '3.8'
+
+# Volumes
+
+# Networks
+
+# Services (Containers)
+services:
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      args:
+        - MYSQL_DATABASE
+        - MYSQL_ROOT
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_USER
+        - MYSQL_USER_PASSWORD
+    networks:
+      - mynetwork
+    restart: always
+    env_file: .env
+    volumes:
+      - mariadb:/var/lib/mysql
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+      args:
+        - DOMAIN_NAME
+    ports:
+      - "443:443"
+    networks:
+      - mynetwork
+    restart: always
+    volumes:
+      - wordpress:/var/www/wordpress
+    depends_on:
+      - wordpress
+
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+    networks:
+      - mynetwork
+    restart: always
+    env_file: .env
+    volumes:
+      - wordpress:/var/www/wordpress
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/mcarecho/data/mariadb
+      o: bind
+    name: mariadb
+
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/mcarecho/data/wordpress
+      o: bind
+    name: wordpress
+
+networks:
+  mynetwork:
+    driver: bridge
