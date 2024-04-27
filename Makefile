@@ -6,7 +6,7 @@
 #    By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 19:25:40 by mcarecho          #+#    #+#              #
-#    Updated: 2024/04/27 17:43:27 by mcarecho         ###   ########.fr        #
+#    Updated: 2024/04/27 17:44:55 by mcarecho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,11 @@ nmap:
 	sudo /etc/init.d/cups stop
 	update-rc.d -f cups remove
 	update-rc.d cups stop 20 2 3 4 5 .
+
+git :
+	git add .
+	git commit -m "update"
+	git push
 
 up:
 	docker-compose -f ./srcs/docker-compose.yml up -d --build
