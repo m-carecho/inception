@@ -1,10 +1,5 @@
 version: '3.8'
 
-# Volumes
-
-# Networks
-
-# Services (Containers)
 services:
   mariadb:
     container_name: mariadb
@@ -16,6 +11,7 @@ services:
         - MYSQL_ROOT_PASSWORD
         - MYSQL_USER
         - MYSQL_USER_PASSWORD
+    image: mariadb
     networks:
       - mynetwork
     restart: always
@@ -44,6 +40,7 @@ services:
     container_name: wordpress
     build:
       context: ./requirements/wordpress
+    image: wordpress
     networks:
       - mynetwork
     restart: always
